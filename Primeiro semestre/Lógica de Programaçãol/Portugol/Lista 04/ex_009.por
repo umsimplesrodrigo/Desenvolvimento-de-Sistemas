@@ -20,22 +20,22 @@ programa
         se ( a == b ou a == c ou b == c) {
         	escreva("Informe valores distintos!")
         }
-        senao se (a <= b e b <= c) {
+        senao se (a < b e b < c) {
             escreva(a, " ", b , " ", c)
         }
-        senao se (a <= c e c <= b) {
+        senao se (a < c e c < b) {
             escreva(a, " ", c, " ", b)
         }
-        senao se (b <= a e a <= c) {
+        senao se (b < a e a < c) {
             escreva(b, " ", a, " ", c)
         }
-        senao se (b <= c e c <= a) {
+        senao se (b < c e c < a) {
             escreva(b, " ", c, " ", a)
         }
-        senao se (c <= a e a <= b) {
+        senao se (c < a e a < b) {
             escreva(c, " ", a, " ", b)
         }
-        senao se (c <= b e b <= a) {
+        senao se (c < b e b < a) {
             escreva(c, " ", b, " ", a)
         }
     }

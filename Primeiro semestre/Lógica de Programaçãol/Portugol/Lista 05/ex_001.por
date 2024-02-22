@@ -11,8 +11,8 @@ programa
 
 		enquanto (hChico > hJuca) {
 			
-hChico = hChico + 0.2
-			hJuca = hJuca + 0.3
+			hChico = hChico + 0.02
+			hJuca = hJuca + 0.03
 			ano++
 		}
 

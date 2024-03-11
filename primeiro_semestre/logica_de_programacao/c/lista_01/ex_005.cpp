@@ -1,12 +1,12 @@
-/*FaÃ§a um programa que leia um cÃ³digo de operaÃ§Ã£o (+, -, * ou /), e tambÃ©m dois valores inteiros
-A e B. O programa deve calcular o resultado da operaÃ§Ã£o escolhida aplicado a A e B. Por
-exemplo, se a operaÃ§Ã£o escolhida foi * e A = 1 e B = 3, o programa deve fornecer como
-resultado o valor de 1*3, que Ã© 3.*/
+/*Faça um programa que leia um código de operação (+, -, * ou /), e também dois valores inteiros
+A e B. O programa deve calcular o resultado da operação escolhida aplicado a A e B. Por
+exemplo, se a operação escolhida foi * e A = 1 e B = 3, o programa deve fornecer como
+resultado o valor de 1*3, que é 3.*/
 #include <stdio.h>
 #include <locale.h> // Para usar a funcao setlocale() para definir um local
 
 int main() {
-	//setlocale(LC_ALL, "portuguese");
+	setlocale(LC_ALL, "portuguese");
 	char operador;
 	float a, b, result;
 	
@@ -29,7 +29,10 @@ int main() {
 			break;
 		case '/': result = a / b;
 			break;
+		default:
+			printf("\nOperador inválido!");
+			return 1;
 	}
 	
-	printf("%f", result);	
+	printf("%.1f", result);	
 }

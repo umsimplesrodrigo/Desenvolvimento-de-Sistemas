@@ -1,25 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+struct Jogador {
+    char nome[50];
+    char marcador;
+} jogadores [2];
 
 char tabuleiro[3][3] = { {'1', '2', '3'},
                          {'4', '5', '6'},
                          {'7', '8', '9'} };
 
-char marcador_jogador1;
-char marcador_atual;
-int jogador_atual;
+int jogador_atual = 0;
 
 void desenharTabuleiro() {
-    char marcador_jogador2;
-    
-    if (marcador_jogador1 == 'X') {
-    	marcador_jogador2 = 'O';
-	} else {
-		marcador_jogador2 = 'X';
-	}
-	
-	system("cls");
-    printf("Jogador 1 (%c)  -  Jogador 2 (%c)\n\n", marcador_jogador1, marcador_jogador2);
+    system("clear"); // system("cls");
+    printf("%s (X)  -  %s (O)\n\n", jogadores[0].nome, jogadores[1].nome);
     printf("     |     |     \n");
     printf("  %c  |  %c  |  %c  \n", tabuleiro[0][0], tabuleiro[0][1], tabuleiro[0][2]);
     printf("_____|_____|_____\n");
@@ -36,7 +32,7 @@ int colocarMarcador(int slot) {
     int coluna = (slot - 1) % 3;
 
     if (tabuleiro[linha][coluna] != 'X' && tabuleiro[linha][coluna] != 'O') {
-        tabuleiro[linha][coluna] = marcador_atual;
+        tabuleiro[linha][coluna] = jogadores[jogador_atual].marcador;
         return 1;
     } else {
         return 0;
@@ -64,48 +60,37 @@ int verificarVencedor() {
         return jogador_atual;
     }
 
-    return 0;
+    return -1; // Agora retorna -1 pois 0 agora é um ídice que define um jogador
 }
 
-void trocarJogadorEMarcador() {
-    if (marcador_atual == 'X') {
-        marcador_atual = 'O';
-    } else {
-        marcador_atual = 'X';
-    }
-
-    if (jogador_atual == 1) {
-        jogador_atual = 2;
-    } else {
-        jogador_atual = 1;
-    }
+void trocarJogador() {
+    jogador_atual = (jogador_atual + 1) % 2;
+    // Como o marcador do jogador agora é fixo, só precisamos trocar o índice do jogador
 }
 
 void jogo() {
-    printf("Jogador 1, escolha seu marcador (X ou O): ");
+    printf("Jogador 1, digite seu nome: ");
+    fgets(jogadores[0].nome, sizeof(jogadores[0].nome), stdin);
+    jogadores[0].nome[strcspn(jogadores[0].nome, "\n")] = 0;
+    jogadores[0].marcador = 'X';
 
-    while (1) {
-        scanf(" %c", &marcador_jogador1);
-        if (marcador_jogador1 == 'X' || marcador_jogador1 == 'O') {
-            break;
-        } else {
-            printf("Marcador inválido! Escolha X ou O: ");
-        }
-    }
-
-    jogador_atual = 1;
-    marcador_atual = marcador_jogador1;
+    printf("Jogador 2, digite seu nome: ");
+    fgets(jogadores[1].nome, sizeof(jogadores[1].nome), stdin);
+    jogadores[1].nome[strcspn(jogadores[1].nome, "\n")] = 0;
+    jogadores[1].marcador = 'O';
 
     desenharTabuleiro();
 
-    int jogador_vencedor = 0;
+    int jogador_vencedor = -1;
 
     for (int i = 0; i < 9; i++) {
-        printf("É a vez do jogador %d. Insira o número do campo: ", jogador_atual);
-        int slot;
-        scanf("%d", &slot);
+        printf("É a vez de %s. Insira o número do campo: ", jogadores[jogador_atual].nome);
+        char entrada[10];
+        scanf("%s", entrada);
 
-        if (slot < 1 || slot > 9) {
+        int slot = atoi(entrada);
+
+        if (slot < 1 || slot > 9 || entrada[1] != '\0') {
             printf("Campo inválido! Tente novamente.\n");
             i--;
             continue;
@@ -121,19 +106,15 @@ void jogo() {
 
         jogador_vencedor = verificarVencedor();
 
-        if (jogador_vencedor == 1) {
-            printf("Jogador 1 vence!\n");
-            break;
-        }
-        if (jogador_vencedor == 2) {
-            printf("Jogador 2 vence!\n");
+        if (jogador_vencedor != -1) {
+            printf("%s vence!\n", jogadores[jogador_vencedor].nome);
             break;
         }
 
-        trocarJogadorEMarcador();
+        trocarJogador();
     }
 
-    if (jogador_vencedor == 0) {
+    if (jogador_vencedor == -1) {
         printf("É um empate!\n");
     }
 }

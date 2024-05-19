@@ -5,11 +5,15 @@ char tabuleiro[3][3] = { {'1', '2', '3'},
                          {'4', '5', '6'},
                          {'7', '8', '9'} };
 
+<<<<<<< HEAD
 char marcador_jogador1;
+=======
+>>>>>>> cd7bf3d9d4ae701aa7b9e5ae9b5c29501db1d25b
 char marcador_atual;
 int jogador_atual;
 
 void desenharTabuleiro() {
+<<<<<<< HEAD
     char marcador_jogador2;
     
     if (marcador_jogador1 == 'X') {
@@ -20,6 +24,10 @@ void desenharTabuleiro() {
 	
 	system("cls"); // Use system("cls"); if you are on Windows
     printf("Jogador 1 (%c)  -  Jogador 2 (%c)\n\n", marcador_jogador1, marcador_jogador2);
+=======
+    system("cls"); // Use system("cls"); if you are on Windows
+    printf("Jogador 1 (X)  -  Jogador 2 (O)\n\n");
+>>>>>>> cd7bf3d9d4ae701aa7b9e5ae9b5c29501db1d25b
     printf("     |     |     \n");
     printf("  %c  |  %c  |  %c  \n", tabuleiro[0][0], tabuleiro[0][1], tabuleiro[0][2]);
     printf("_____|_____|_____\n");
@@ -83,6 +91,10 @@ void trocarJogadorEMarcador() {
 
 void jogo() {
     printf("Jogador 1, escolha seu marcador (X ou O): ");
+<<<<<<< HEAD
+=======
+    char marcador_jogador1;
+>>>>>>> cd7bf3d9d4ae701aa7b9e5ae9b5c29501db1d25b
     while (1) {
         scanf(" %c", &marcador_jogador1);
         if (marcador_jogador1 == 'X' || marcador_jogador1 == 'O') {

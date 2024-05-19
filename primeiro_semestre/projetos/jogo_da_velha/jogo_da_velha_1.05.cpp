@@ -5,13 +5,15 @@
 struct Jogador {
     char nome[50];
     char marcador;
-} jogadores [2];
+    int vitorias;
+} jogadores[2];
 
 char tabuleiro[3][3] = { {'1', '2', '3'},
                          {'4', '5', '6'},
                          {'7', '8', '9'} };
 
 int jogador_atual = 0;
+int empates = 0;
 
 void desenharTabuleiro() {
     system("clear"); // system("cls");
@@ -25,6 +27,13 @@ void desenharTabuleiro() {
     printf("     |     |     \n");
     printf("  %c  |  %c  |  %c  \n", tabuleiro[2][0], tabuleiro[2][1], tabuleiro[2][2]);
     printf("     |     |     \n\n");
+}
+
+void resetarTabuleiro() {
+    char novo_tabuleiro[3][3] = { {'1', '2', '3'},
+                                  {'4', '5', '6'},
+                                  {'7', '8', '9'} };
+    memcpy(tabuleiro, novo_tabuleiro, sizeof(tabuleiro));
 }
 
 int colocarMarcador(int slot) {
@@ -60,12 +69,18 @@ int verificarVencedor() {
         return jogador_atual;
     }
 
-    return -1; // Agora retorna -1 pois 0 agora é um ídice que define um jogador
+    return -1; // Agora retorna -1 pois 0 agora é um índice que define um jogador
 }
 
 void trocarJogador() {
     jogador_atual = (jogador_atual + 1) % 2;
-    // Como o marcador do jogador agora é fixo, só precisamos trocar o índice do jogador
+}
+
+void mostrarPlacar() {
+    printf("Placar:\n");
+    printf("%s: %d\n", jogadores[0].nome, jogadores[0].vitorias);
+    printf("%s: %d\n", jogadores[1].nome, jogadores[1].vitorias);
+    printf("Empates: %d\n", empates);
 }
 
 void jogo() {
@@ -73,49 +88,74 @@ void jogo() {
     fgets(jogadores[0].nome, sizeof(jogadores[0].nome), stdin);
     jogadores[0].nome[strcspn(jogadores[0].nome, "\n")] = 0;
     jogadores[0].marcador = 'X';
+    jogadores[0].vitorias = 0;
 
     printf("Jogador 2, digite seu nome: ");
     fgets(jogadores[1].nome, sizeof(jogadores[1].nome), stdin);
     jogadores[1].nome[strcspn(jogadores[1].nome, "\n")] = 0;
     jogadores[1].marcador = 'O';
+    jogadores[1].vitorias = 0;
 
-    desenharTabuleiro();
-
-    int jogador_vencedor = -1;
-
-    for (int i = 0; i < 9; i++) {
-        printf("É a vez de %s. Insira o número do campo: ", jogadores[jogador_atual].nome);
-        char entrada[10];
-        scanf("%s", entrada);
-
-        int slot = atoi(entrada);
-
-        if (slot < 1 || slot > 9 || entrada[1] != '\0') {
-            printf("Campo inválido! Tente novamente.\n");
-            i--;
-            continue;
-        }
-
-        if (!colocarMarcador(slot)) {
-            printf("Campo ocupado! Tente novamente.\n");
-            i--;
-            continue;
-        }
-
+    while (1) {
         desenharTabuleiro();
+        int jogador_vencedor = -1;
 
-        jogador_vencedor = verificarVencedor();
+        for (int i = 0; i < 9; i++) {
+            printf("É a vez de %s. Insira o número do campo: ", jogadores[jogador_atual].nome);
+            char entrada[10];
+            scanf("%s", entrada);
 
-        if (jogador_vencedor != -1) {
-            printf("%s vence!\n", jogadores[jogador_vencedor].nome);
+            int slot = atoi(entrada);
+
+            if (slot < 1 || slot > 9 || entrada[1] != '\0') {
+                printf("Campo inválido! Tente novamente.\n");
+                i--;
+                continue;
+            }
+
+            if (!colocarMarcador(slot)) {
+                printf("Campo ocupado! Tente novamente.\n");
+                i--;
+                continue;
+            }
+
+            desenharTabuleiro();
+
+            jogador_vencedor = verificarVencedor();
+
+            if (jogador_vencedor != -1) {
+                printf("%s vence!\n", jogadores[jogador_vencedor].nome);
+                jogadores[jogador_vencedor].vitorias++;
+                break;
+            }
+
+            trocarJogador();
+        }
+
+        if (jogador_vencedor == -1) {
+            printf("É um empate!\n");
+            empates++;
+        }
+
+        int escolha;
+
+        printf("1- Jogar novamente\n");
+        printf("2- Ver placar\n");
+        printf("3- Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &escolha);
+
+        if (escolha == 1) {
+            resetarTabuleiro();
+            jogador_atual = 0;
+        } else if (escolha == 2) {
+            mostrarPlacar();
+            printf("Pressione Enter para continuar...");
+            getchar(); // Limpar buffer
+            getchar(); // Esperar Enter, ou qualquer outra tecla
+        } else {
             break;
         }
-
-        trocarJogador();
-    }
-
-    if (jogador_vencedor == -1) {
-        printf("É um empate!\n");
     }
 }
 

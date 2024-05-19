@@ -27,6 +27,8 @@ void desenharTabuleiro() {
     printf("     |     |     \n");
     printf("  %c  |  %c  |  %c  \n", tabuleiro[2][0], tabuleiro[2][1], tabuleiro[2][2]);
     printf("     |     |     \n\n");
+    printf("Acesse nosso repositório no github: \n");
+    printf("https://github.com/umsimplesrodrigo/Desenvolvimento-de-Sistemas\n\n");
 }
 
 void resetarTabuleiro() {
@@ -84,13 +86,13 @@ void mostrarPlacar() {
 }
 
 void jogo() {
-    printf("Jogador 1, digite seu nome: ");
+    printf("Jogador 1, informe seu nome: ");
     fgets(jogadores[0].nome, sizeof(jogadores[0].nome), stdin);
     jogadores[0].nome[strcspn(jogadores[0].nome, "\n")] = 0;
     jogadores[0].marcador = 'X';
     jogadores[0].vitorias = 0;
 
-    printf("Jogador 2, digite seu nome: ");
+    printf("Jogador 2, informe seu nome: ");
     fgets(jogadores[1].nome, sizeof(jogadores[1].nome), stdin);
     jogadores[1].nome[strcspn(jogadores[1].nome, "\n")] = 0;
     jogadores[1].marcador = 'O';
@@ -124,7 +126,7 @@ void jogo() {
             jogador_vencedor = verificarVencedor();
 
             if (jogador_vencedor != -1) {
-                printf("%s vence!\n", jogadores[jogador_vencedor].nome);
+                printf("Parabens! %s, você é o(a) vencedor(a)!\n\n", jogadores[jogador_vencedor].nome);
                 jogadores[jogador_vencedor].vitorias++;
                 break;
             }
@@ -133,15 +135,17 @@ void jogo() {
         }
 
         if (jogador_vencedor == -1) {
-            printf("É um empate!\n");
+            printf("Empate!!\n\n");
             empates++;
         }
 
         int escolha;
 
-        printf("1- Jogar novamente\n");
-        printf("2- Ver placar\n");
-        printf("3- Sair\n");
+        printf("|--------MENU--------|\n");
+        printf("| 1- Jogar novamente |\n");
+        printf("| 2- Ver placar      |\n");
+        printf("| 3- Sair            |\n");
+        printf("|--------------------|\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
 

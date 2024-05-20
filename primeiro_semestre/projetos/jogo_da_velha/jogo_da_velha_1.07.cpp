@@ -152,11 +152,13 @@ void jogo() {
         if (escolha == 1) {
             resetarTabuleiro();
             jogador_atual = 0;
+            printf("tabuleiro resetado\n");
         } else if (escolha == 2) {
             mostrarPlacar();
             printf("Pressione Enter para continuar...");
-            getchar(); // Limpar buffer
-            getchar(); // Esperar Enter, ou qualquer outra tecla
+            getchar();
+            getchar();
+            resetarTabuleiro();
         } else {
             break;
         }

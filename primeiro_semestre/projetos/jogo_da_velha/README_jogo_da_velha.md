@@ -38,4 +38,7 @@ Resultado Final da Partida: Apresenta na tela o resultado final da partida utili
 <br>
 <p>Versão 1.06:</p>
 <li>Personalização da interface de saída no terminal, menu modificado.</li>
+<br>
+<p>Versão 1.07:</p>
+<li>Correção de erros, após ver o placar e clicar enter o tabuleiro continuava na mesma partida.</li>
 </ul>

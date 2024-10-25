@@ -1,3 +1,42 @@
+CREATE DATABASE test00;
+USE test00;
+
+CREATE TABLE produtos (
+        cod_produto INT NOT NULL AUTO_INCREMENT,
+        nome VARCHAR (45) NOT NULL,
+        preco DECIMAL (10,5),
+        PRIMARY KEY(cod_produto)
+);
+
+CREATE TABLE controle (
+        registro INT  NOT NULL AUTO_INCREMENT,
+        cod_produto INT NOT NULL,
+        data_registro DATE,
+        hora_registro TIME,
+        PRIMARY KEY (registro, cod_produto),
+        FOREIGN KEY (cod_produto) REFERENCES produtos (cod_produto)
+);
+
+CREATE TABLE controle_preco (
+        registro INT  NOT NULL AUTO_INCREMENT,
+        data_registro DATE,
+        hora_registro TIME,
+        cod_produto INT NOT NULL,
+        preco_antigo DECIMAL (10,2),
+        preco_novo DECIMAL (10,2),
+        PRIMARY KEY (registro, cod_produto),
+        FOREIGN KEY (cod_produto) REFERENCES produtos (cod_produto)
+);
+
+CREATE TABLE produtos_two (
+    id_produto INT NOT NULL AUTO_INCREMENT,
+    nome_produto VARCHAR (45) NOT NULL,
+    preco_normal DECIMAL (10,2) NOT NULL,
+    preco_desconto DECIMAL (10,2) NOT NULL,
+    PRIMARY KEY (id_produto)
+);
+
+ALTER TABLE produtos_two MODIFY preco_desconto DECIMAL (10,2) DEFAULT NULL;
 -- Criar um trigger que toda vez que houver um INSERT na tabela PRODUTOS, serão inseridas a DATA e a HORA desta inserção na tabela CONTROLE.
 
 USE test00;
@@ -57,3 +96,14 @@ DELIMITER ;
 SHOW TRIGGERS;
 
 -- MANO OS TRIGGERS NÃO APARECEM, NÃO ESTÁ RETORNANDO NADA NESSE KRAI
+
+-- Criar um trigger para que antes de ser inserido um produto deve ser aplicado um desconto de 10% sobre o preco_normal e atribuido ao preco_desconto
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER produto_desconto
+BEFORE INSERT ON produtos_two
+FOR EACH ROW
+BEGIN
+    SET NEW.preco_desconto = NEW.preco_normal * 0.9;
+END $$
+DELIMITER ;

@@ -33,7 +33,11 @@ ALTER TABLE users
 ADD COLUMN chave_publica VARCHAR(512) NOT NULL,
 ADD COLUMN chave_privada VARCHAR(512) NOT NULL;
 
-CREATE TABLE transacoes_senaicoins (
+ALTER TABLE users
+MODIFY chave_publica VARCHAR(512) DEFAULT NULL,
+MODIFY chave_privada VARCHAR(512) DEFAULT NULL;
+
+CREATE OR REPLACE TABLE transacoes_senaicoins (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_remetente INT,
     id_destinatario INT,
@@ -74,4 +78,47 @@ CREATE TABLE memory_pool (
     data_inclusao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_remetente) REFERENCES users(id),
     FOREIGN KEY (id_destinatario) REFERENCES users(id)
+);
+
+CREATE TABLE trasacoes_senaicoins (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_remetente INT,
+    id_destinatario INT,
+    valor DECIMAL(20,10) NOT NULL,
+    time_transacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_remetente) REFERENCES users (id),
+    FOREIGN KEY (id_destinatario) REFERENCES users (id)
+);
+
+CREATE TABLE transacoes_nfts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_remetente INT,
+    id_destinatario INT,
+    id_nft INT,
+    valor DECIMAL(20,10) NOT NULL,
+    time_transacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_remetente) REFERENCES users (id),
+    FOREIGN KEY (id_destinatario) REFERENCES users (id),
+    FOREIGN KEY (id_nft) REFERENCES nfts_objetos (id)
+);
+
+CREATE TABLE log_modificacoes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tabela_afetada VARCHAR(255) NOT NULL,  -- Nome da tabela afetada
+    acao VARCHAR(50) NOT NULL,             -- Tipo de ação: INSERT, UPDATE, DELETE
+    descricao TEXT,                        -- Descrição da modificação
+    id_usuario INT,                        -- ID do usuário que fez a ação
+    data_modificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Data da modificação
+    FOREIGN KEY (id_usuario) REFERENCES users (id)
+);
+
+DROP TABLE IF EXISTS memory_pool;
+
+CREATE TABLE memory_pool (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_transacao INT NOT NULL,
+    tipo_transacao ENUM('minerar', 'transferir_senaicoins', 'transferir_nft', 'Senaicoin', 'NFT') NOT NULL,
+    status ENUM('pendente', 'minerado') DEFAULT 'pendente',
+    data_inclusao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_transacao) REFERENCES transacoes_senaicoins (id)
 );

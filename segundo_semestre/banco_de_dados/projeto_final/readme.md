@@ -8,4 +8,5 @@
   <li>Rodrigo Da Silva Oliveira</li>
   <li>Thiago Moreira de Almeida Trabuco Lima</li>
   <li>Laís Santana Lima</li>
+  <li>Matheus Brandão Ribeiro</li>
 </ul>

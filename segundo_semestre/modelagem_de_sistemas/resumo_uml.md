@@ -1,1 +1,2 @@
-
+<h1>Resumo <a href = "https://www.scielo.br/j/gp/a/RRQQ7mKTFztQXK9Sz7BKtWQ/">UML</a></h1>
+<p>O artigo analisa a aplicação da UML (Linguagem de Modelagem Unificada) como ferramenta para suportar o desenvolvimento de sistemas computacionais, inserida em um modelo de referência. Ele aborda como a UML pode padronizar e melhorar a comunicação entre as equipes de projeto, além de destacar suas limitações e possíveis melhorias no contexto de metodologias de desenvolvimento ágil e orientado a objetos. A pesquisa enfatiza a importância da UML na estruturação de projetos complexos, mas sugere um uso adaptado às necessidades específicas de cada sistema e organização</p>

@@ -1,0 +1,107 @@
+# -------------------------
+# Arquivos de sistema
+# -------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -------------------------
+# IntelliJ IDEA, Eclipse, VS Code e outros IDEs
+# -------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.vscode/
+*.code-workspace
+
+# -------------------------
+# Arquivos de compilação Java (Maven, Gradle, etc.)
+# -------------------------
+target/
+bin/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+.mvn/
+!**/src/**/main/**  # Garante que o código-fonte suba
+!**/src/**/test/**
+
+# -------------------------
+# Arquivos de compilação C/C++
+# -------------------------
+*.o
+*.out
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+*.ncb
+*.sdf
+*.suo
+*.pdb
+*.idb
+*.ilk
+*.res
+*.pch
+*.d
+
+# -------------------------
+# Node.js / JavaScript / TypeScript
+# -------------------------
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+.eslintcache
+.next/
+out/
+
+# -------------------------
+# Portugol Studio
+# -------------------------
+*.pgu  # Arquivos temporários do Portugol Studio
+
+# -------------------------
+# Logs, caches e arquivos temporários
+# -------------------------
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# -------------------------
+# Manter imagens e documentos
+# -------------------------
+!*.png
+!*.jpg
+!*.jpeg
+!*.gif
+!*.svg
+!*.bmp
+!*.tiff
+!*.ico
+!*.pdf
+!*.doc
+!*.docx
+!*.xls
+!*.xlsx
+!*.ppt
+!*.pptx
+!*.md

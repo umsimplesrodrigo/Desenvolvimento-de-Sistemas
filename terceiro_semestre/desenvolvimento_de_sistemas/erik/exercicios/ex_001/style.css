@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Sigmar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Grechen+Fuemen&family=Sigmar&display=swap');
+
+body {
+    background-color: #926f49;
+    font-family: "Grechen Fuemen", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.cabecalho {
+    font-family: "Sigmar", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+}
+
+.quem-somos {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 50px;
+}
+
+.quem-somos img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 2px solid #220e04;
+}
+
+.rodape {
+    color: #220e04;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rodape ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.rodape ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
